@@ -1,1 +1,1 @@
-Puppet Modules examples for supporting an enviroment with RedHat, Debian, and Mac systems.
+Puppet Modules examples for supporting an enviroment with RedHat, Debian, and Mac systems. All files under modulename/files/ are placeholders, so you will want to replace these with your config files for each module.

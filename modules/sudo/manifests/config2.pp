@@ -3,23 +3,20 @@
 # Configure sudo by matching hostname regular expressions.
 #
 class sudo::config2 {
-   case $hostname {
+ case $hostname {
     /node/: {
-     file { "/etc/sudoers":
-        owner  => root, group  => root,
-        mode   => 440,
-        source => "puppet:///modules/sudo/sudoers.node",
-     } # file
+        $source = "puppet:///modules/sudo/sudoers.node"
     } # node
-
     /server/: {
+        $source = "puppet:///modules/sudo/sudoers.server"
+    } # server
+   } # end case
+
      file { "/etc/sudoers":
         owner  => root, group  => root,
         mode   => 440,
-        source => "puppet:///modules/sudo/sudoers.server",
-     } # file 
-    } # ingest
+        source => $source,
+     } # file
 
-   } # hostname
 } # end class sudo::config2
 

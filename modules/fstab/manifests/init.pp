@@ -18,10 +18,5 @@ class fstab {
         source => $source,
     }
 
-#    exec { mountall: command => "mkdir /ops; /bin/mount -a",
-#        subscribe   => File["/etc/fstab"],
-#        refreshonly => true,
-#    }
-
 } # end class fstab
 

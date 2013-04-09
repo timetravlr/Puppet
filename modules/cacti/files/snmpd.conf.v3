@@ -1,0 +1,52 @@
+###########################################################################
+#
+# snmpd.conf
+#
+#   - created by the snmpconf configuration program
+#
+###########################################################################
+# SECTION: System Information Setup
+#
+syslocation  serverroom
+
+syscontact  sysadmin
+
+
+###########################################################################
+# SECTION: Access Control Setup
+#
+#   This section defines who is allowed to talk to your running
+#   snmp agent.
+
+# rouser: a SNMPv3 read-only user
+#   arguments:  user [noauth|auth|priv] [restriction_oid]
+
+rouser  snmpuser noauth 
+
+# rocommunity: a SNMPv1/SNMPv2c read-only access community name
+#   arguments:  community [default|hostname|network/bits] [oid]
+
+rocommunity community1
+
+# First, map/change the community name "(public)" into a "security name"
+
+com2sec local     	localhost	community1
+com2sec mynetwork 	XX.XX.XX.0/24	community1
+
+
+# Second, map the security name into a group name:
+#group MyROGroup 	any 			mynetwork
+#group MyROGroup 	v2c 			mynetwork
+group MyROGroup 	v3 			mynetwork
+
+# Third, create a view for us to let the group have rights to:
+view all		included 		.1 80
+view    systemview      included        .1.3.6.1.4.1.33049.2.4.1.4.1.1.24
+
+#       group          context sec.model sec.level prefix read   write  notif
+access MyROGroup ""      any       noauth    exact  all    none   none
+
+pass .1.3.6.1.3.1 /usr/bin/perl /usr/local/bin/iostat.pl
+
+
+

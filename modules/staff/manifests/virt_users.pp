@@ -16,6 +16,7 @@ class staff::virt_users {
 @user { "drno":
 	uid => "12347",
 	gid => "321",
+	groups => "optional",
 	comment => "Dr No",
 	home => "/home/drno",
 	password => '$6$XXXXXXXXXXX..',
